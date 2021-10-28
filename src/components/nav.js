@@ -10,8 +10,10 @@ function nav() {
                         <img src={icon} alt={"l"} />
                     </div>
                 </a>
-                <div>
-                    Swap Pool chart
+                <div className="mid-pill">
+                    <a class="pill ACTIVE" href="#/swap" aria-current="page">Swap</a>
+                    <a class="pill" id="pool-nav-link" href="#/pool">Pool</a>
+                    <a class="pill" id="pool-nav-link" href="#/pool">Charts<sup>↗</sup></a>
                 </div>
                 <div>
                     <div>
