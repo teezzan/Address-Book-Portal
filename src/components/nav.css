@@ -107,3 +107,45 @@
     margin: 0px 12px;
     font-weight: 500;
 }
+
+.network-add {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-self: flex-end;
+}
+
+.network {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.amount {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    padding-left: 0.75rem;
+    padding-right: 0.5rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.address {
+    
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    background-color: rgb(25, 27, 31);
+    border: 1px solid rgb(33, 36, 41);
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+}

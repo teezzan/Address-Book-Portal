@@ -15,14 +15,17 @@ function nav() {
                     <a class="pill" id="pool-nav-link" href="#/pool">Pool</a>
                     <a class="pill" id="pool-nav-link" href="#/pool">Charts<sup>↗</sup></a>
                 </div>
-                <div>
-                    <div>
+                <div className="network-add">
+                    <div className="network">
                         ntw
                     </div>
-                    <div>
-                        add
+                    <div className="network">
+                        <div>
+                            <div className="amount">6.13 ETH</div>
+
+                        </div>
                     </div>
-                    <div>
+                    <div className="network">
                         opt
                     </div>
                 </div>
