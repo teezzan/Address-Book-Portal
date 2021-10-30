@@ -42,7 +42,7 @@ function nav(props) {
               {props.user.address}
             </div>
             <div className="pill" id="pool-nav-link" href="#/pool">
-              {props.user.balance}
+              {props.user.balance} ETH
             </div>
           </div>
         </div>

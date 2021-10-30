@@ -17,7 +17,7 @@ function Swap(props) {
     <div className="swap-container">
       <div className="swap-contain">
         <div className="swap-contain_top">
-          <div>{`${props.task === "Inquiry" ? "Innqury" : "Send Ether"}`}</div>
+          <div>{`${props.task === "Inquiry" ? "Alias Inquiry" : "Send Ether"}`}</div>
           <SettingsIcon />
         </div>
         <div className="swap-contain-top">
