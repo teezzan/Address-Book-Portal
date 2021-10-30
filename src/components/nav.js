@@ -22,13 +22,17 @@ function nav() {
           </a>
         </div>
         <div className="network-add">
-          <div className="network">ntw</div>
-          <div className="network">
-            <div>
-              <div className="amount">6.13 ETH</div>
+          <div className="mid-pill">
+            <div class="pill ACTIVE"  aria-current="page">
+              @teezzan
+            </div>
+            <div class="pill" id="pool-nav-link" href="#/pool">
+              0x12..2cb
+            </div>
+            <div class="pill" id="pool-nav-link" href="#/pool">
+              0.44 ETH
             </div>
           </div>
-          <div className="network">opt</div>
         </div>
       </div>
     </div>
