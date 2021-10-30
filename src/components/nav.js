@@ -10,7 +10,9 @@ function nav() {
             <img src={Icon} width={25} alt={"l"} />
           </div>
         </a>
-        <div className="mid-pill">
+        <div className="mid-pill mid-nav" style={{
+          transform: "translateX(135px)"
+        }}>
           <a class="pill ACTIVE" href="#/swap" aria-current="page">
             Inquiry
           </a>
