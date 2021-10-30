@@ -4,6 +4,7 @@ import { ArrowDown, SettingsIcon } from "./Icons";
 import EthIcon from "../images/download.png";
 function Swap() {
   const [aliasToAddress, setaliasToAddress] = useState(true);
+  const [connected, setConnected] = useState(false);
 
   const swapfields = () => {
     setaliasToAddress(!aliasToAddress)
@@ -41,8 +42,8 @@ function Swap() {
                 </div>
               </div>
             }
-            <div className="middleArrow" onClick={()=>swapfields()}>
-              <ArrowDown  />
+            <div className="middleArrow" onClick={() => swapfields()}>
+              <ArrowDown />
             </div>
             {
               !aliasToAddress &&
@@ -70,7 +71,8 @@ function Swap() {
             }
           </div>
 
-          <div className="connect-btn">Connect wallet</div>
+          {!connected && <div className="connect-btn" onClick={()=>{setConnected(true)}}>Connect wallet</div>}
+          {connected && <div className="connected-btn">Check</div>}
         </div>
       </div>
     </div>

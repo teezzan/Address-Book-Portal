@@ -163,3 +163,18 @@
   top: 43%;
   cursor: pointer;
 }
+.connected-btn {
+  background-color: rgb(33, 114, 229);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px;
+  border: none;
+  appearance: none;
+  padding-bottom: 15px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
