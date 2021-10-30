@@ -12,13 +12,13 @@ function nav() {
         </a>
         <div className="mid-pill">
           <a class="pill ACTIVE" href="#/swap" aria-current="page">
-            Swap
+            Inquiry
           </a>
           <a class="pill" id="pool-nav-link" href="#/pool">
-            Pool
+            Send Ether
           </a>
           <a class="pill" id="pool-nav-link" href="#/pool">
-            Charts<sup>↗</sup>
+            Github<sup>↗</sup>
           </a>
         </div>
         <div className="network-add">
