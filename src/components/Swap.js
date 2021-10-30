@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./swap.css";
 import { ArrowDown, SettingsIcon } from "./Icons";
 import EthIcon from "../images/download.png";
-function Swap() {
+function Swap(props) {
   const [aliasToAddress, setaliasToAddress] = useState(true);
-  const [connected, setConnected] = useState(false);
+  useEffect(() => { setaliasToAddress(true) }, [props.task]);
 
   const swapfields = () => {
-    setaliasToAddress(!aliasToAddress)
+    if (props.task === "Inquiry") {
+      setaliasToAddress(!aliasToAddress)
+    } else {
+      setaliasToAddress(true)
+    }
   }
   return (
     <div className="swap-container">
       <div className="swap-contain">
         <div className="swap-contain_top">
-          <div>Inquiry</div>
+          <div>{`${props.task === "Inquiry" ? "Innqury" : "Send Ether"}`}</div>
           <SettingsIcon />
         </div>
         <div className="swap-contain-top">
@@ -24,11 +28,14 @@ function Swap() {
               <div className="swap_input">
                 <div className="swap-internal">
                   <div className="swap_token">
-                    <img src={EthIcon} width={24} alt="" />
-                    <span>ETH</span>
+                    {
+                      props.task === "Send" &&
+                      <img src={EthIcon} width={24} alt="" />
+                    }
+                    <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
                   </div>
+                  <input placeholder={`${props.task === "Inquiry" ? "@john_doe" : "0.0"}`} className="swap_value" />
 
-                  <input placeholder="0.0" className="swap_value" />
                 </div>
               </div>
             }
@@ -37,8 +44,8 @@ function Swap() {
 
               <div className="swap_input">
                 <div className="swap-internal">
-                  <div className="swap_token">ETH</div>
-                  <input placeholder="0.0" className="swap_value" />
+                  <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
+                  <input placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`} className="swap_value" />
                 </div>
               </div>
             }
@@ -51,11 +58,14 @@ function Swap() {
               <div className="swap_input">
                 <div className="swap-internal">
                   <div className="swap_token">
-                    <img src={EthIcon} width={24} alt="" />
-                    <span>ETH</span>
+                    {
+                      props.task === "Send" &&
+                      <img src={EthIcon} width={24} alt="" />
+                    }
+                    <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
                   </div>
 
-                  <input placeholder="0.0" className="swap_value" />
+                  <input placeholder={`${props.task === "Inquiry" ? "@john_doe" : "0.0"}`} className="swap_value" />
                 </div>
               </div>
             }
@@ -64,15 +74,15 @@ function Swap() {
 
               <div className="swap_input">
                 <div className="swap-internal">
-                  <div className="swap_token">ETH</div>
-                  <input placeholder="0.0" className="swap_value" />
+                  <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
+                  <input placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`} className="swap_value" />
                 </div>
               </div>
             }
           </div>
 
-          {!connected && <div className="connect-btn" onClick={()=>{setConnected(true)}}>Connect wallet</div>}
-          {connected && <div className="connected-btn">Check</div>}
+          {!props.connected && <div className="connect-btn" onClick={() => { props.setConnected(true) }}>Connect wallet</div>}
+          {props.connected && <div className="connected-btn">{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import "./nav.css";
 import Icon from "../images/icon.svg";
-function nav() {
+function nav(props) {
+
   return (
     <div className="nav-bar">
       <div className="internal-nav">
@@ -13,26 +14,35 @@ function nav() {
         <div className="mid-pill mid-nav" style={{
           transform: "translateX(135px)"
         }}>
-          <a class="pill ACTIVE" href="#/swap" aria-current="page">
+          <a className={`${props.task === "Inquiry" ? "pill ACTIVE" : "pill"} `}
+            href="#/inquiry"
+            onClick={() => { props.setTask("Inquiry") }}
+            aria-current="page">
             Inquiry
           </a>
-          <a class="pill" id="pool-nav-link" href="#/pool">
+          <a className={` ${props.task === "Send" ? "pill ACTIVE" : "pill"} `}
+            id="pool-nav-link"
+            onClick={() => { props.setTask("Send") }}
+            href="#/send"
+          >
             Send Ether
           </a>
-          <a class="pill" id="pool-nav-link" href="#/pool">
+          <a className="pill"
+            id="pool-nav-link"
+            href="https://github.com/teezzan/Adress-Book-Portal">
             Github<sup>↗</sup>
           </a>
         </div>
         <div className="network-add">
           <div className="mid-pill">
-            <div class="pill ACTIVE"  aria-current="page">
-              @teezzan
+            <div className="pill ACTIVE" aria-current="page">
+              {props.user.alias}
             </div>
-            <div class="pill" id="pool-nav-link" href="#/pool">
-              0x12..2cb
+            <div className="pill" id="pool-nav-link" href="#/pool">
+              {props.user.address}
             </div>
-            <div class="pill" id="pool-nav-link" href="#/pool">
-              0.44 ETH
+            <div className="pill" id="pool-nav-link" href="#/pool">
+              {props.user.balance}
             </div>
           </div>
         </div>
