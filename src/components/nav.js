@@ -36,7 +36,7 @@ function nav(props) {
         <div className="network-add">
           <div className="mid-pill">
             <div className="pill ACTIVE" aria-current="page">
-              {props.user.alias}
+              @{props.user.alias}
             </div>
             <div className="pill" id="pool-nav-link" href="#/pool">
               {props.user.address}

@@ -15,7 +15,7 @@ const App = () => {
   const [task, setTask] = useState("Send");
   const [user, setUser] = useState({
     balance: "0.0",
-    alias: "@alias",
+    alias: "alias",
     address: "Unconnected"
   });
 
@@ -68,6 +68,22 @@ const App = () => {
       console.log(error)
     }
   }
+  const connectWallet = async () => {
+    try {
+        const { ethereum } = window;
+
+        if (!ethereum) {
+            alert("Get MetaMask!");
+            return;
+        }
+
+        await ethereum.request({ method: "eth_requestAccounts" });
+
+        await checkIfWalletIsConnected();
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
@@ -88,6 +104,7 @@ const App = () => {
         connected={connected}
         setConnected={setConnected}
         task={task}
+        connectWalletHandler={connectWallet}
       />
       <div className="bottom_nav" style={{
         display: "none",

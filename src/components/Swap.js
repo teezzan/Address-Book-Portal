@@ -82,7 +82,7 @@ function Swap(props) {
           </div>
 
           {!props.connected && <div className="connect-btn" onClick={() => { props.setConnected(true) }}>Connect wallet</div>}
-          {props.connected && <div className="connected-btn">{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+          {props.connected && <div className="connected-btn" onClick={props.connectWalletHandler()}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
     </div>
