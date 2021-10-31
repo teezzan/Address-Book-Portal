@@ -66,6 +66,18 @@ function Swap(props) {
 
     }
   }
+  const handleAmountChange = (e) => {
+    let value;
+    if (e.target.value == "")
+      setInputAmount("")
+    else if (e.target.value[e.target.value.length - 1] === "." && e.target.value.substr(0, e.target.value.length - 1).indexOf('.') == -1)
+      setInputAmount(e.target.value);
+    else {
+      value = parseFloat(e.target.value);
+      if (!!value)
+        setInputAmount(value);
+    }
+  };
 
   const swapfields = () => {
     if (props.task === "Inquiry") {
@@ -101,7 +113,7 @@ function Swap(props) {
                       placeholder="0.0"
                       value={inputAmount}
                       className="swap_value"
-                      onChange={(e) => setInputAmount(e.target.value)}
+                      onChange={handleAmountChange}
                     /> :
                     <input
                       placeholder="@john_doe"
@@ -167,8 +179,6 @@ function Swap(props) {
                       className="swap_value" /> :
                     <> <input
                       placeholder="@john_doe"
-                      // value={inputAliasETH}
-                      // onChange={(e) => setInputAliasETH(e.target.value)}
                       value={inputText}
                       onChange={e => setInputText(e.target.value)}
                       className="swap_value" />
