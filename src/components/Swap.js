@@ -2,7 +2,46 @@ import React, { useState, useEffect } from "react";
 import "./swap.css";
 import { ArrowDown, SettingsIcon } from "./Icons";
 import EthIcon from "../images/download.png";
+import useConstant from 'use-constant';
+import { useAsync } from 'react-async-hook';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+const nullAddress = "0x0000000000000000000000000000000000000000";
+
 function Swap(props) {
+  const useDebouncedSearch = (searchFunction) => {
+
+    // Handle the input text state
+    const [inputText, setInputText] = useState('');
+
+    // Debounce the original search async function
+    const debouncedSearchFunction = useConstant(() =>
+      AwesomeDebouncePromise(searchFunction, 500)
+    );
+
+    // The async callback is run each time the text changes,
+    // but as the search function is debounced, it does not
+    // fire a new request on each keystroke
+    const searchResults = useAsync(
+      async () => {
+        if (inputText.length === 0) {
+          return [];
+        } else {
+          return debouncedSearchFunction(inputText);
+        }
+      },
+      [debouncedSearchFunction, inputText]
+    );
+
+    // Return everything needed for the hook consumer
+    return {
+      inputText,
+      setInputText,
+      searchResults,
+    };
+  };
+  const useSearchAlias = () => useDebouncedSearch(text => props.getAddressFromAlias(text))
+
+
   const [aliasToAddress, setaliasToAddress] = useState(true);
   const [inputAlias, setInputAlias] = useState("");
   const [inputAliasETH, setInputAliasETH] = useState("");
@@ -10,6 +49,7 @@ function Swap(props) {
   const [inputAmount, setInputAmount] = useState("");
 
   useEffect(() => { setaliasToAddress(true) }, [props.task]);
+  const { inputText, setInputText, searchResults } = useSearchAlias();
 
   const inquire = async () => {
 
@@ -33,6 +73,7 @@ function Swap(props) {
     } else {
       setaliasToAddress(true)
     }
+    props.setOutputAddress("");
   }
   return (
     <div className="swap-container">
@@ -124,11 +165,23 @@ function Swap(props) {
                       value={props.outputAddress}
                       readOnly="readonly"
                       className="swap_value" /> :
-                    <input
+                    <> <input
                       placeholder="@john_doe"
-                      value={inputAliasETH}
-                      onChange={(e) => setInputAliasETH(e.target.value)}
-                      className="swap_value" />}
+                      // value={inputAliasETH}
+                      // onChange={(e) => setInputAliasETH(e.target.value)}
+                      value={inputText}
+                      onChange={e => setInputText(e.target.value)}
+                      className="swap_value" />
+                      {props.outputAddress !== "" && props.outputAddress !== nullAddress && <div
+                        style={{
+                          position: "absolute",
+                          bottom: "12px"
+                        }}>{props.outputAddress}</div>}
+                    </>
+
+                  }
+
+
 
                 </div>
               </div>
