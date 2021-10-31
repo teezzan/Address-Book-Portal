@@ -1,66 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# AddressBook
 
-## Running on Repl.it
+## A simple and fast way of interacting with the blockchain.
 
-Simply hit run once and start coding. Will hot reload the web view. 
+If you have ever felt like you need a simple way to interact with the blockchain, this is it. It allows you to send ether to anyone using only a pre-choosen alias. Thats all. Seriously. 
 
-## Running Scripts
 
-You can open a new shell window by hitting command+shift+S on macOS or control+shift+S (you can also access shortcuts from the `?` in the bottom right corner).
+## Screenshots & Demo.
 
-When in the shell you can run any of the following scripts:
+![white](images/1.png)
+![white](images/2.png)
+![white](images/5.png)
+![white](images/3.png)
+![white](images/4.png)
 
-### `yarn test`
+## Built With
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Solidity](https://docs.soliditylang.org/en/v0.8.9/)
+- [HardHat](https://hardhat.org/)
+- [ReactJS](https://reactjs.org/)
 
-### `yarn build`
+## Features
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Easy address inquiry
+- Easy alias inquiry
+- Customizable alias for everyone.
+- Intuitive UI.
+- Send Ether to aliases.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Example Code
+TBD
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Issues and pull requests are welcome at [Address-Book-Portal(https://github.com/teezzan/Adress-Book-Portal). This project is intended to be safe, welcoming, and open for collaboration. Users are expected to adhere to the [Contributor Covenant code of conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/). We are all human.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Authors
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**[Taiwo Yusuf](https://github.com/teezzan/)**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Acknowledgments
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**[Meg Gutshall](https://github.com/meg-gutshall/)** for her README template. Helped a lot.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## License
+This project is licensed under the Apache License - see the [LICENSE.md](LICENSE.md) file for details.
