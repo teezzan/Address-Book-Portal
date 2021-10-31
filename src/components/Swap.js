@@ -12,21 +12,18 @@ function Swap(props) {
   useEffect(() => { setaliasToAddress(true) }, [props.task]);
 
   const inquire = async () => {
+
     let payload = aliasToAddress ? inputAlias : inputAddress;
+    if (!!!payload) {
+      alert("Empty Payload");
+      return;
+    }
     if (aliasToAddress) {
-      if (!!payload) {
-        props.getAddressFromAlias(payload)
+      props.getAddressFromAlias(payload)
 
-      } else {
-        alert("Empty Payload");
-      }
     } else {
-      if (!!payload) {
-        props.getAliasFromAddress(payload)
+      props.getAliasFromAddress(payload)
 
-      } else {
-        alert("Empty Payload");
-      }
     }
   }
 
@@ -139,7 +136,7 @@ function Swap(props) {
           </div>
 
           {!props.connected && <div className="connect-btn" onClick={props.connectWalletHandler}>Connect wallet</div>}
-          {props.connected && <div className="connected-btn" onClick={inquire()}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+          {props.connected && <div className="connected-btn" onClick={inquire}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
     </div>

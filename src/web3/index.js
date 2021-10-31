@@ -1,5 +1,5 @@
 // import { ethers } from "ethers";
-// import abi from './utils/AddressBook.json';
+import abi from './utils/AddressBook.json';
 // const contractAddress = "0x3e0f26fC65B4057499920823c854c14B7057b418";
 // const contractABI = abi.abi;
 

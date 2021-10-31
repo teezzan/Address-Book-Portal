@@ -1,3 +1,6 @@
+import { ethers } from "ethers";
+
+
 const [currentAccount, setCurrentAccount] = useState("");
 const [alias, setAlias] = useState("");
 const [recalias, setRecAlias] = useState("");
