@@ -11,6 +11,8 @@ const contractABI = abi.abi;
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
+  const [outputAddress, setOutputAddress] = useState("");
+  const [outputAlias, setOutputAlias] = useState("");
   const [connected, setConnected] = useState(false);
   const [task, setTask] = useState("Send");
   const [user, setUser] = useState({
@@ -18,6 +20,7 @@ const App = () => {
     alias: "alias",
     address: "Unconnected"
   });
+
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -36,9 +39,9 @@ const App = () => {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
-        let {alias, balance} = await getMyAliasAndBalance();
-        balance = Number(balance *1000n/BigInt(10**18))/1000;
-        setUser({ ...user,balance, alias, address: "0" + account.substr(1, 4) + "..." + account.substr(account.length - 2, account.length) })
+        let { alias, balance } = await getMyAliasAndBalance();
+        balance = Number(balance * 1000n / BigInt(10 ** 18)) / 1000;
+        setUser({ ...user, balance, alias, address: "0" + account.substr(1, 4) + "..." + account.substr(account.length - 2, account.length) })
 
         setConnected(true);
 
@@ -60,7 +63,7 @@ const App = () => {
         const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
         let checkAlias = await addressBookContract.getMyAlias()
         let checkBalance = await signer.getBalance();
-        return {alias: checkAlias.toString(), balance: checkBalance.toBigInt() };
+        return { alias: checkAlias.toString(), balance: checkBalance.toBigInt() };
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -70,22 +73,56 @@ const App = () => {
   }
   const connectWallet = async () => {
     try {
-        const { ethereum } = window;
+      const { ethereum } = window;
 
-        if (!ethereum) {
-            alert("Get MetaMask!");
-            return;
-        }
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
 
-        await ethereum.request({ method: "eth_requestAccounts" });
+      await ethereum.request({ method: "eth_requestAccounts" });
 
-        await checkIfWalletIsConnected();
+      await checkIfWalletIsConnected();
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
-
-
+  }
+  const getAliasFromAddress = async (address) => {
+    try {
+      const { ethereum } = window;
+      setOutputAlias("");
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
+        let alias = await addressBookContract.getAlias(address)
+        console.log(alias)
+        setOutputAlias(alias);
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAddressFromAlias = async (alias) => {
+    try {
+      const { ethereum } = window;
+      setOutputAddress("");
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
+        let address = await addressBookContract.getAddress(alias)
+        console.log(address)
+        setOutputAddress(address);
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   useEffect(() => {
@@ -105,6 +142,13 @@ const App = () => {
         setConnected={setConnected}
         task={task}
         connectWalletHandler={connectWallet}
+        outputAlias={outputAlias}
+        outputAddress={outputAddress}
+        setOutputAddress={setOutputAddress}
+        setOutputAlias={setOutputAlias}
+        getAliasFromAddress={getAliasFromAddress}
+        getAddressFromAlias={getAddressFromAlias}
+
       />
       <div className="bottom_nav" style={{
         display: "none",

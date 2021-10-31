@@ -4,7 +4,31 @@ import { ArrowDown, SettingsIcon } from "./Icons";
 import EthIcon from "../images/download.png";
 function Swap(props) {
   const [aliasToAddress, setaliasToAddress] = useState(true);
+  const [inputAlias, setInputAlias] = useState("");
+  const [inputAliasETH, setInputAliasETH] = useState("");
+  const [inputAddress, setInputAddress] = useState("");
+  const [inputAmount, setInputAmount] = useState("");
+
   useEffect(() => { setaliasToAddress(true) }, [props.task]);
+
+  const inquire = async () => {
+    let payload = aliasToAddress ? inputAlias : inputAddress;
+    if (aliasToAddress) {
+      if (!!payload) {
+        props.getAddressFromAlias(payload)
+
+      } else {
+        alert("Empty Payload");
+      }
+    } else {
+      if (!!payload) {
+        props.getAliasFromAddress(payload)
+
+      } else {
+        alert("Empty Payload");
+      }
+    }
+  }
 
   const swapfields = () => {
     if (props.task === "Inquiry") {
@@ -34,7 +58,21 @@ function Swap(props) {
                     }
                     <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
                   </div>
-                  <input placeholder={`${props.task === "Inquiry" ? "@john_doe" : "0.0"}`} className="swap_value" />
+                  {props.task === "Send" ?
+                    <input
+                      placeholder="0.0"
+                      value={inputAmount}
+                      className="swap_value"
+                      onChange={(e) => setInputAmount(e.target.value)}
+                    /> :
+                    <input
+                      placeholder="@john_doe"
+                      value={inputAlias}
+                      className="swap_value"
+                      onChange={(e) => setInputAlias(e.target.value)}
+
+                    />
+                  }
 
                 </div>
               </div>
@@ -45,7 +83,11 @@ function Swap(props) {
               <div className="swap_input">
                 <div className="swap-internal">
                   <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
-                  <input placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`} className="swap_value" />
+                  <input
+                    placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`}
+                    value={inputAddress}
+                    onChange={(e) => setInputAddress(e.target.value)}
+                    className="swap_value" />
                 </div>
               </div>
             }
@@ -64,8 +106,11 @@ function Swap(props) {
                     }
                     <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
                   </div>
-
-                  <input placeholder={`${props.task === "Inquiry" ? "@john_doe" : "0.0"}`} className="swap_value" />
+                  <input
+                    placeholder="@john_doe"
+                    value={props.outputAlias}
+                    readOnly="readonly"
+                    className="swap_value" />
                 </div>
               </div>
             }
@@ -75,14 +120,26 @@ function Swap(props) {
               <div className="swap_input">
                 <div className="swap-internal">
                   <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
-                  <input placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`} className="swap_value" />
+
+                  {props.task === "Inquiry" ?
+                    <input
+                      placeholder="0x27ae23dEA"
+                      value={props.outputAddress}
+                      readOnly="readonly"
+                      className="swap_value" /> :
+                    <input
+                      placeholder="@john_doe"
+                      value={inputAliasETH}
+                      onChange={(e) => setInputAliasETH(e.target.value)}
+                      className="swap_value" />}
+
                 </div>
               </div>
             }
           </div>
 
-          {!props.connected && <div className="connect-btn" onClick={() => { props.setConnected(true) }}>Connect wallet</div>}
-          {props.connected && <div className="connected-btn" onClick={props.connectWalletHandler()}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+          {!props.connected && <div className="connect-btn" onClick={props.connectWalletHandler}>Connect wallet</div>}
+          {props.connected && <div className="connected-btn" onClick={inquire()}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
     </div>
