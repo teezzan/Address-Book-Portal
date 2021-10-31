@@ -44,12 +44,15 @@ function Swap(props) {
 
   const [aliasToAddress, setaliasToAddress] = useState(true);
   const [inputAlias, setInputAlias] = useState("");
-  const [inputAliasETH, setInputAliasETH] = useState("");
+  // const [inputAliasETH, setInputAliasETH] = useState("");
   const [inputAddress, setInputAddress] = useState("");
   const [inputAmount, setInputAmount] = useState("");
 
-  useEffect(() => { setaliasToAddress(true) }, [props.task]);
-  const { inputText, setInputText, searchResults } = useSearchAlias();
+  useEffect(() => {
+    setaliasToAddress(true)
+    props.setOutputAddress("")
+  }, [props.task]);
+  const { inputText, setInputText } = useSearchAlias();
 
   const inquire = async () => {
 
@@ -66,11 +69,31 @@ function Swap(props) {
 
     }
   }
+  const send = async () => {
+    let amount = inputAmount;
+    let rec_alias = inputText;
+
+    if (!!!amount || !!!rec_alias)
+      alert("Empty Payload");
+    else if (amount <= 0)
+      alert("Error in Input");
+    else if (props.outputAddress === "" || props.outputAddress === nullAddress)
+      alert("Alias does not exist");
+    else if (props.user.balance < amount)
+      alert("Insufficient Balance");
+    else{
+      props.sendEthToAlias(rec_alias, `${amount}`, setInputText, setInputAmount);
+    }
+
+  }
+
+
+
   const handleAmountChange = (e) => {
     let value;
-    if (e.target.value == "")
+    if (e.target.value === "")
       setInputAmount("")
-    else if (e.target.value[e.target.value.length - 1] === "." && e.target.value.substr(0, e.target.value.length - 1).indexOf('.') == -1)
+    else if (e.target.value[e.target.value.length - 1] === "." && e.target.value.substr(0, e.target.value.length - 1).indexOf('.') === -1)
       setInputAmount(e.target.value);
     else {
       value = parseFloat(e.target.value);
@@ -199,7 +222,7 @@ function Swap(props) {
           </div>
 
           {!props.connected && <div className="connect-btn" onClick={props.connectWalletHandler}>Connect wallet</div>}
-          {props.connected && <div className="connected-btn" onClick={inquire}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+          {props.connected && <div className="connected-btn" onClick={props.task === "Inquiry" ? inquire : send}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
     </div>

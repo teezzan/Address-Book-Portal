@@ -123,6 +123,33 @@ const App = () => {
       console.log(error)
     }
   }
+  const sendEthToAlias = async (rec_alias, amount, set1, set2) => {
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
+        let send = await addressBookContract.deposit(rec_alias, {
+          value: ethers.utils.parseEther(amount),
+        })
+        console.log(send);
+        alert("Processing!")
+        setOutputAddress("");
+        set1("");
+        set2("");
+        checkIfWalletIsConnected()
+        return send;
+      } else {
+        alert("Ethereum object doesn't exist!");
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      alert(error.message);
+      console.log(error)
+    }
+  }
 
 
   useEffect(() => {
@@ -148,7 +175,8 @@ const App = () => {
         setOutputAlias={setOutputAlias}
         getAliasFromAddress={getAliasFromAddress}
         getAddressFromAlias={getAddressFromAlias}
-
+        user={user}
+        sendEthToAlias={sendEthToAlias}
       />
       <div className="bottom_nav" style={{
         display: "none",
