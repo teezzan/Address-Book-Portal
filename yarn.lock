@@ -9239,7 +9239,7 @@
   optionalDependencies:
     "fsevents" "2.0.7"
 
-"react@*", "react@^16.12.0", "react@^16.14.0", "react@^16.8.0 || ^17.0.0", "react@>=16.8":
+"react@*", "react@^16.12.0", "react@^16.14.0", "react@^16.8.0 || ^17.0.0", "react@>=0.14 || >=15.0", "react@>=16.8":
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
   "version" "16.14.0"
@@ -9977,6 +9977,11 @@
   "integrity" "sha512-KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ=="
   "resolved" "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.5.tgz"
   "version" "3.0.5"
+
+"simple-react-modal@^0.5.1":
+  "integrity" "sha1-oyvOJBjVJ6SN/ht8w0PHpXoArxA="
+  "resolved" "https://registry.npmjs.org/simple-react-modal/-/simple-react-modal-0.5.1.tgz"
+  "version" "0.5.1"
 
 "simple-swizzle@^0.2.2":
   "integrity" "sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo="
