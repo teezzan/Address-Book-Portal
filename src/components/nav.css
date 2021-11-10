@@ -251,24 +251,43 @@
   padding: 4px 6px;
 }
 
-.addr{
+.addr {
   font-weight: 500;
   font-size: 1.25rem;
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
-.copy_addr{
+.copy_addr {
   display: flex;
   align-items: center;
   gap: 5px;
   color: rgb(143, 150, 172);
   font-size: 0.825rem;
 }
-.view_addr{
+
+.view_addr {
   display: flex;
   align-items: center;
   gap: 5px;
   color: rgb(143, 150, 172);
   font-size: 0.825rem;
-
 }
+
+.modal-input {
+  border-radius: 20px;
+  padding: 2px 4px;
+  color: rgb(255, 255, 255);
+  position: relative;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  background-color: rgb(33, 36, 41);
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  appearance: textfield;
+  text-align: right;
+  width: 48%;
+}
+

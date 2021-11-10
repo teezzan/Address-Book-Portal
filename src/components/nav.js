@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./nav.css";
 import Icon from "../images/icon.svg";
 import Modal from 'simple-react-modal'
-import { Account , Copy, View} from "./Icons";
+import { Account, Copy, View } from "./Icons";
 
 function Nav(props) {
   const [show, setShow] = useState(false)
@@ -62,14 +62,14 @@ function Nav(props) {
             <div>
               Account
             </div>
-            <div 
-            onClick={() => setShow(!show)}
+            <div
+              onClick={() => setShow(!show)}
 
-            style={{
-              cursor:"pointer"
-            }}
+              style={{
+                cursor: "pointer"
+              }}
             >
-            <Account  />
+              <Account />
 
             </div>
           </div>
@@ -79,8 +79,12 @@ function Nav(props) {
             <div className="modal__account-contain">
               <div className="contain__item">
                 <div className="contain__item-first">
-                  Connected with Metamask
+                <input
+                    placeholder="0.0"
+                    className="modal-input"
+                  />
                 </div>
+
 
                 <div className="contain__item-sec">
                   Change
@@ -93,11 +97,11 @@ function Nav(props) {
               </div>
               <div className="contain__item">
                 <div className="copy_addr">
-                 <Copy/> Copy Address
+                  <Copy /> Copy Address
                 </div>
 
                 <div className="view_addr">
-                  <View/>View on Explorer
+                  <View />View on Explorer
                 </div>
               </div>
             </div>
