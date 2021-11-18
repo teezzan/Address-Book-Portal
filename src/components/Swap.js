@@ -47,15 +47,30 @@ function Swap(props) {
 
   const [aliasToAddress, setaliasToAddress] = useState(true);
   const [inputAlias, setInputAlias] = useState("");
-  // const [inputAliasETH, setInputAliasETH] = useState("");
   const [inputAddress, setInputAddress] = useState("");
   const [inputAmount, setInputAmount] = useState("");
+  const [outputMyAddress, setOutputMyAddress] = useState(false);
+
+  const useAvailableSearchAlias = () => useDebouncedSearch(text => {
+    props.getAddressFromAlias(text, false).then((res) => {
+      if (res == nullAddress) {
+        setOutputMyAddress(true)
+      }
+      else {
+        setOutputMyAddress(false)
+
+      }
+    })
+  })
 
   useEffect(() => {
     setaliasToAddress(true)
     props.setOutputAddress("")
   }, [props.task]);
+
+
   const { inputText, setInputText } = useSearchAlias();
+  const { inputText: inputUserText, setInputText: setInputUserText } = useAvailableSearchAlias();
 
   const inquire = async () => {
 
@@ -84,7 +99,7 @@ function Swap(props) {
       alert("Alias does not exist");
     else if (props.user.balance < amount)
       alert("Insufficient Balance");
-    else{
+    else {
       props.sendEthToAlias(rec_alias, `${amount}`, setInputText, setInputAmount);
     }
 
@@ -115,131 +130,131 @@ function Swap(props) {
   }
   return (
     <>
-    <div className="swap-container">
-      <div className="swap-contain">
-        <div className="swap-contain_top">
-          <div>{`${props.task === "Inquiry" ? "Alias Inquiry" : "Send Ether"}`}</div>
-          <SettingsIcon />
-        </div>
-        <div className="swap-contain-top">
-          <div className="swap_input-contain">
-            {
-              aliasToAddress &&
-
-              <div className="swap_input">
-                <div className="swap-internal">
-                  <div className="swap_token">
-                    {
-                      props.task === "Send" &&
-                      <img src={EthIcon} width={24} alt="" />
-                    }
-                    <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
-                  </div>
-                  {props.task === "Send" ?
-                    <input
-                      placeholder="0.0"
-                      value={inputAmount}
-                      className="swap_value"
-                      onChange={handleAmountChange}
-                    /> :
-                    <input
-                      placeholder="@john_doe"
-                      value={inputAlias}
-                      className="swap_value"
-                      onChange={(e) => setInputAlias(e.target.value)}
-
-                    />
-                  }
-
-                </div>
-              </div>
-            }
-            {
-              !aliasToAddress &&
-
-              <div className="swap_input">
-                <div className="swap-internal">
-                  <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
-                  <input
-                    placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`}
-                    value={inputAddress}
-                    onChange={(e) => setInputAddress(e.target.value)}
-                    className="swap_value" />
-                </div>
-              </div>
-            }
-            <div className="middleArrow" onClick={() => swapfields()}>
-              <ArrowDown />
-            </div>
-            {
-              !aliasToAddress &&
-
-              <div className="swap_input">
-                <div className="swap-internal">
-                  <div className="swap_token">
-                    {
-                      props.task === "Send" &&
-                      <img src={EthIcon} width={24} alt="" />
-                    }
-                    <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
-                  </div>
-                  <input
-                    placeholder="@john_doe"
-                    value={props.outputAlias}
-                    readOnly="readonly"
-                    className="swap_value" />
-                </div>
-              </div>
-            }
-            {
-              aliasToAddress &&
-
-              <div className="swap_input">
-                <div className="swap-internal">
-                  <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
-
-                  {props.task === "Inquiry" ?
-                    <input
-                      placeholder="0x27ae23dEA"
-                      value={props.outputAddress}
-                      readOnly="readonly"
-                      className="swap_value" /> :
-                    <> <input
-                      placeholder="@john_doe"
-                      value={inputText}
-                      onChange={e => setInputText(e.target.value)}
-                      className="swap_value" />
-                      {props.outputAddress !== "" && props.outputAddress !== nullAddress && <div
-                        style={{
-                          position: "absolute",
-                          bottom: "12px"
-                        }}>{props.outputAddress}</div>}
-                    </>
-
-                  }
-
-
-
-                </div>
-              </div>
-            }
+      <div className="swap-container">
+        <div className="swap-contain">
+          <div className="swap-contain_top">
+            <div>{`${props.task === "Inquiry" ? "Alias Inquiry" : "Send Ether"}`}</div>
+            <SettingsIcon />
           </div>
+          <div className="swap-contain-top">
+            <div className="swap_input-contain">
+              {
+                aliasToAddress &&
 
-          {!props.connected && <div className="connect-btn" onClick={props.connectWalletHandler}>Connect wallet</div>}
-          {props.connected && <div className="connected-btn" onClick={props.task === "Inquiry" ? inquire : send}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+                <div className="swap_input">
+                  <div className="swap-internal">
+                    <div className="swap_token">
+                      {
+                        props.task === "Send" &&
+                        <img src={EthIcon} width={24} alt="" />
+                      }
+                      <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
+                    </div>
+                    {props.task === "Send" ?
+                      <input
+                        placeholder="0.0"
+                        value={inputAmount}
+                        className="swap_value"
+                        onChange={handleAmountChange}
+                      /> :
+                      <input
+                        placeholder="@john_doe"
+                        value={inputAlias}
+                        className="swap_value"
+                        onChange={(e) => setInputAlias(e.target.value)}
+
+                      />
+                    }
+
+                  </div>
+                </div>
+              }
+              {
+                !aliasToAddress &&
+
+                <div className="swap_input">
+                  <div className="swap-internal">
+                    <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
+                    <input
+                      placeholder={`${props.task === "Inquiry" ? "0x27ae23dEA" : "@john_doe"}`}
+                      value={inputAddress}
+                      onChange={(e) => setInputAddress(e.target.value)}
+                      className="swap_value" />
+                  </div>
+                </div>
+              }
+              <div className="middleArrow" onClick={() => swapfields()}>
+                <ArrowDown />
+              </div>
+              {
+                !aliasToAddress &&
+
+                <div className="swap_input">
+                  <div className="swap-internal">
+                    <div className="swap_token">
+                      {
+                        props.task === "Send" &&
+                        <img src={EthIcon} width={24} alt="" />
+                      }
+                      <span>{`${props.task === "Inquiry" ? "Alias" : "ETH"}`}</span>
+                    </div>
+                    <input
+                      placeholder="@john_doe"
+                      value={props.outputAlias}
+                      readOnly="readonly"
+                      className="swap_value" />
+                  </div>
+                </div>
+              }
+              {
+                aliasToAddress &&
+
+                <div className="swap_input">
+                  <div className="swap-internal">
+                    <div className="swap_token">{`${props.task === "Inquiry" ? "Address" : "Alias"}`}</div>
+
+                    {props.task === "Inquiry" ?
+                      <input
+                        placeholder="0x27ae23dEA"
+                        value={props.outputAddress}
+                        readOnly="readonly"
+                        className="swap_value" /> :
+                      <> <input
+                        placeholder="@john_doe"
+                        value={inputText}
+                        onChange={e => setInputText(e.target.value)}
+                        className="swap_value" />
+                        {props.outputAddress !== "" && props.outputAddress !== nullAddress && <div
+                          style={{
+                            position: "absolute",
+                            bottom: "12px"
+                          }}>{props.outputAddress}</div>}
+                      </>
+
+                    }
+
+
+
+                  </div>
+                </div>
+              }
+            </div>
+
+            {!props.connected && <div className="connect-btn" onClick={props.connectWalletHandler}>Connect wallet</div>}
+            {props.connected && <div className="connected-btn" onClick={props.task === "Inquiry" ? inquire : send}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
+          </div>
         </div>
+
+
+
       </div>
-
-
-
-    </div>
-    <Modal show={props.show} onClose={() => props.setShow(!props.show)} className="themodal">
+      <Modal show={props.show} onClose={() => props.setShow(!props.show)} className="themodal">
         <div className="modal__content">
 
           <div className="content__top">
 
             <div>
-              Account
+              Add Your Alias
             </div>
             <div
               onClick={() => props.setShow(!props.show)}
@@ -254,43 +269,17 @@ function Swap(props) {
           </div>
 
           <div className="modal__in">
-            <input type="text" placeholder="Address" />
+            <input
+              type="text"
+              placeholder="@john_doe"
+              value={inputUserText}
+              onChange={e => setInputUserText(e.target.value)}
 
-            <button>Submit</button>
+            />
+            {outputMyAddress ? <span>Available</span> : <span>Not Available</span>}
+
+            <button disabled={!outputMyAddress || inputUserText.length == 0} onClick={() => props.setMyAlias(inputUserText)}>Submit</button>
           </div>
-
-          {/* <div className="modal__account">
-
-            <div className="modal__account-contain">
-              <div className="contain__item">
-                <div className="contain__item-first">
-                <input
-                    placeholder="0.0"
-                    className="modal-input"
-                  />
-                </div>
-
-
-                <div className="contain__item-sec">
-                  Change
-                </div>
-              </div>
-              <div className="contain__item addr">
-                <div className="addr">
-                  0x6D5F...F69E
-                </div>
-              </div>
-              <div className="contain__item">
-                <div className="copy_addr">
-                  <Copy /> Copy Address
-                </div>
-
-                <div className="view_addr">
-                  <View />View on Explorer
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </Modal>
     </>

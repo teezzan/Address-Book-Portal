@@ -23,7 +23,6 @@ const App = () => {
     address: "Unconnected"
   });
 
-
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
@@ -41,11 +40,22 @@ const App = () => {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
-        let { alias, balance } = await getMyAliasAndBalance();
-        balance = Number(balance * 1000n / BigInt(10 ** 18)) / 1000;
-        setUser({ ...user, balance, alias, address: "0" + account.substr(1, 4) + "..." + account.substr(account.length - 2, account.length) })
+        //check if user has set alias
+        let userAlias = await getAliasFromAddress(account);
+        console.log("UA", userAlias);
+        console.log(userAlias == "<empty string>");
+        if (userAlias.length !== 0) {
+          let { alias, balance } = await getMyAliasAndBalance();
+          balance = Number(balance * 1000n / BigInt(10 ** 18)) / 1000;
+          setUser({ ...user, balance, alias, address: "0" + account.substr(1, 4) + "..." + account.substr(account.length - 2, account.length) })
+          setConnected(true);
+        }
+        else {
+          setShow(true);
+          setConnected(true);
+        }
 
-        setConnected(true);
+
 
       } else {
         console.log("No authorized account found")
@@ -54,7 +64,26 @@ const App = () => {
       console.log(error);
     }
   }
+  const setMyAlias = async (alias) => {
+    try {
+      const { ethereum } = window;
 
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
+        let addAlias = await addressBookContract.addAlias(alias);
+        alert("Processing. Please wait for confirmation of transaction on The blockchain!")
+        setShow(false);
+        await checkIfWalletIsConnected();
+
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const getMyAliasAndBalance = async () => {
     try {
       const { ethereum } = window;
@@ -89,7 +118,7 @@ const App = () => {
       console.log(error)
     }
   }
-  const getAliasFromAddress = async (address) => {
+  const getAliasFromAddress = async (address, setOutput = false) => {
     try {
       const { ethereum } = window;
       setOutputAlias("");
@@ -98,8 +127,9 @@ const App = () => {
         const signer = provider.getSigner();
         const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
         let alias = await addressBookContract.getAlias(address)
-        console.log(alias)
-        setOutputAlias(alias);
+        if (setOutput)
+          setOutputAlias(alias);
+        return alias
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -107,7 +137,7 @@ const App = () => {
       console.log(error)
     }
   }
-  const getAddressFromAlias = async (alias) => {
+  const getAddressFromAlias = async (alias, setOutput = false) => {
     try {
       const { ethereum } = window;
       setOutputAddress("");
@@ -116,8 +146,9 @@ const App = () => {
         const signer = provider.getSigner();
         const addressBookContract = new ethers.Contract(contractAddress, contractABI, signer);
         let address = await addressBookContract.getAddress(alias)
-        console.log(address)
-        setOutputAddress(address);
+        if (!setOutput)
+          setOutputAddress(address);
+        return address;
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -183,6 +214,7 @@ const App = () => {
         sendEthToAlias={sendEthToAlias}
         setShow={setShow}
         show={show}
+        setMyAlias={setMyAlias}
       />
       <div className="bottom_nav" style={{
         display: "none",
