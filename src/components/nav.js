@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "./nav.css";
 import Icon from "../images/icon.svg";
-import Modal from 'simple-react-modal'
-import { Account, Copy, View } from "./Icons";
+
 
 function Nav(props) {
-  const [show, setShow] = useState(false)
 
   return (
     <>
@@ -43,7 +41,7 @@ function Nav(props) {
               <div className="pill ACTIVE" aria-current="page">
                 @{props.user.alias}
               </div>
-              <div className="pill" id="pool-nav-link" href="#/pool" onClick={() => setShow(!show)}>
+              <div className="pill" id="pool-nav-link" href="#/pool" onClick={() => props.setShow(!props.show)}>
                 {props.user.address}
               </div>
               <div className="pill" id="pool-nav-link" href="#/pool">
@@ -54,60 +52,7 @@ function Nav(props) {
         </div>
       </div>
 
-      <Modal show={show} onClose={() => setShow(!show)} className="themodal">
-        <div className="modal__content">
-
-          <div className="content__top">
-
-            <div>
-              Account
-            </div>
-            <div
-              onClick={() => setShow(!show)}
-
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              <Account />
-
-            </div>
-          </div>
-
-          <div className="modal__account">
-
-            <div className="modal__account-contain">
-              <div className="contain__item">
-                <div className="contain__item-first">
-                <input
-                    placeholder="0.0"
-                    className="modal-input"
-                  />
-                </div>
-
-
-                <div className="contain__item-sec">
-                  Change
-                </div>
-              </div>
-              <div className="contain__item addr">
-                <div className="addr">
-                  0x6D5F...F69E
-                </div>
-              </div>
-              <div className="contain__item">
-                <div className="copy_addr">
-                  <Copy /> Copy Address
-                </div>
-
-                <div className="view_addr">
-                  <View />View on Explorer
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
+     
     </>
   );
 }

@@ -5,9 +5,12 @@ import EthIcon from "../images/download.png";
 import useConstant from 'use-constant';
 import { useAsync } from 'react-async-hook';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import Modal from 'simple-react-modal'
+import { Account, Copy, View } from "./Icons";
 const nullAddress = "0x0000000000000000000000000000000000000000";
 
 function Swap(props) {
+
   const useDebouncedSearch = (searchFunction) => {
 
     // Handle the input text state
@@ -111,6 +114,7 @@ function Swap(props) {
     props.setOutputAddress("");
   }
   return (
+    <>
     <div className="swap-container">
       <div className="swap-contain">
         <div className="swap-contain_top">
@@ -225,7 +229,71 @@ function Swap(props) {
           {props.connected && <div className="connected-btn" onClick={props.task === "Inquiry" ? inquire : send}>{`${props.task === "Inquiry" ? "Check" : "Send"}`}</div>}
         </div>
       </div>
+
+
+
     </div>
+    <Modal show={props.show} onClose={() => props.setShow(!props.show)} className="themodal">
+        <div className="modal__content">
+
+          <div className="content__top">
+
+            <div>
+              Account
+            </div>
+            <div
+              onClick={() => props.setShow(!props.show)}
+
+              style={{
+                cursor: "pointer"
+              }}
+            >
+              <Account />
+
+            </div>
+          </div>
+
+          <div className="modal__in">
+            <input type="text" placeholder="Address" />
+
+            <button>Submit</button>
+          </div>
+
+          {/* <div className="modal__account">
+
+            <div className="modal__account-contain">
+              <div className="contain__item">
+                <div className="contain__item-first">
+                <input
+                    placeholder="0.0"
+                    className="modal-input"
+                  />
+                </div>
+
+
+                <div className="contain__item-sec">
+                  Change
+                </div>
+              </div>
+              <div className="contain__item addr">
+                <div className="addr">
+                  0x6D5F...F69E
+                </div>
+              </div>
+              <div className="contain__item">
+                <div className="copy_addr">
+                  <Copy /> Copy Address
+                </div>
+
+                <div className="view_addr">
+                  <View />View on Explorer
+                </div>
+              </div>
+            </div>
+          </div> */}
+        </div>
+      </Modal>
+    </>
   );
 }
 

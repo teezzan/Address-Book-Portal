@@ -10,6 +10,8 @@ const contractABI = abi.abi;
 
 
 const App = () => {
+  const [show, setShow] = useState(false)
+
   const [currentAccount, setCurrentAccount] = useState("");
   const [outputAddress, setOutputAddress] = useState("");
   const [outputAlias, setOutputAlias] = useState("");
@@ -163,6 +165,8 @@ const App = () => {
         task={task}
         setTask={setTask}
         user={user}
+        setShow={setShow}
+        show={show}
       />
       <Swap
         connected={connected}
@@ -177,6 +181,8 @@ const App = () => {
         getAddressFromAlias={getAddressFromAlias}
         user={user}
         sendEthToAlias={sendEthToAlias}
+        setShow={setShow}
+        show={show}
       />
       <div className="bottom_nav" style={{
         display: "none",

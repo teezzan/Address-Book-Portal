@@ -169,7 +169,7 @@
   background-color: cornflowerblue;
   position: relative;
   margin: 0 auto;
-  top: 216px;
+  top: -238px;
   z-index: 10;
   /* margin: 0px 0px 2rem; */
   background-color: rgb(25, 27, 31);
@@ -185,7 +185,7 @@
   border-radius: 20px;
   width: 100%;
   flex-direction: column;
-  margin-bottom: -194px;
+  /* margin-bottom: -194px; */
 }
 
 .modal__content {
@@ -291,3 +291,51 @@
   width: 48%;
 }
 
+
+
+.modal__in{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 10px;
+ 
+}
+
+.modal__in input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(44, 47, 54);
+  padding: 1rem;
+  outline: none;
+  border: 1px solid rgb(64, 68, 79);
+  border-radius: 12px;
+  width: 100% !important;
+  color: white;
+  font-size: 24px;
+}
+.modal__in ::placeholder{
+  color: white;
+  font-weight: 500;
+    font-size: 16px;
+}
+
+.modal__in input:focus{
+  border: 1px solid rgb(33, 114, 229);
+}
+
+.modal__in button{
+  background-color: rgba(21, 61, 111, 0.44);
+  color: rgb(80, 144, 234);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px;
+  border: none;
+  appearance: none;
+  padding-bottom: 15px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
