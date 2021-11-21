@@ -38,10 +38,10 @@ function Nav(props) {
           </div>
           <div className="network-add">
             <div className="mid-pill">
-              <div className="pill ACTIVE" aria-current="page">
+              <div className="pill ACTIVE" aria-current="page" onClick={() => props.setShow(!props.show)}>
                 @{props.user.alias}
               </div>
-              <div className="pill" id="pool-nav-link" href="#/pool" onClick={() => props.setShow(!props.show)}>
+              <div className="pill" id="pool-nav-link" href="#/pool">
                 {props.user.address}
               </div>
               <div className="pill" id="pool-nav-link" href="#/pool">
@@ -52,7 +52,7 @@ function Nav(props) {
         </div>
       </div>
 
-     
+
     </>
   );
 }
